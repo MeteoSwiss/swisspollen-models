@@ -1,7 +1,0 @@
-
-This model was developed and trained by MeteoSwiss for use within the SwissPollen Monitoring Network. It is designed for pollen classification using SwisensPoleno (Jupiter) devices.
-
-The model has been tested and validated exclusively under Swiss conditions for seven pollen taxa: Alnus, Betula, Corylus, Fagus, Fraxinus, Poaceae, and Quercus.
-While the model technically includes a total of 15 classes, only the seven taxa listed above have been validated. The remaining classes have not been validated and may yield unreliable or inaccurate results.
-
-Use of the model outside its intended scope — including applications in other geographic regions, for unvalidated taxa, or for operational decision-making — is not recommended.

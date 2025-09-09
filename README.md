@@ -1,4 +1,6 @@
-The meteoswiss_2025_Q2_15sp (2025-Gamma-2) model was developed and trained for use within the Swiss Pollen Monitoring Network. It has been tested and validated exclusively under Swiss conditions for seven pollen taxa: Alnus, Betula, Corylus, Fagus, Fraxinus, Poaceae, and Quercus.
+The meteoswiss_2025_Q2_15sp (2025-Gamma-2) model was developed and trained for use within the Swiss Pollen Monitoring Network. It has been tested and validated exclusively under Swiss conditions for seven pollen taxa: Alnus, Betula, Corylus, Fagus, Fraxinus, Poaceae, and Quercus. The model is described in a publication (Aerobiologia, in press), the submited manuscript "Operational pollen classification using digital holography and fluorescence" is also available as a preprint:
+
+https://doi.org/10.21203/rs.3.rs-7158558/v1
 
 Although the model technically includes a total of 15 classes, only the seven taxa listed above have been validated. The remaining classes have not been validated and may produce unreliable or inaccurate results.
 Use of the model outside its intended scope—including applications in other geographic regions, for unvalidated taxa, or for operational decision-making—is not recomended.

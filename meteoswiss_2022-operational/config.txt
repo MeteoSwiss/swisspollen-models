@@ -1,0 +1,172 @@
+{
+  "classes": [
+    "dactylis",
+    "alnus",
+    "fagus",
+    "taxus",
+    "ulmus",
+    "water",
+    "betula",
+    "corylus",
+    "poaceae",
+    "populus",
+    "quercus",
+    "carpinus",
+    "fraxinus",
+    "pinaceae",
+    "platanus",
+    "cupressus"
+  ],
+  "classMapping": {
+    "alnus": "alnus",
+    "fagus": "fagus",
+    "taxus": "taxus",
+    "ulmus": "ulmus",
+    "water": "water",
+    "betula": "betula",
+    "corylus": "corylus",
+    "poaceae": "dactylis",
+    "populus": "populus",
+    "quercus": "quercus",
+    "carpinus": "carpinus",
+    "fraxinus": "fraxinus",
+    "pinaceae": "pinaceae",
+    "platanus": "platanus",
+    "cupressus": 0.4,
+    "cupressus ": "cupressus"
+  },
+  "classesDisabled": [],
+  "thresholds": {
+    "alnus": 0.85,
+    "fagus": 0.9,
+    "taxus": 0.95,
+    "ulmus": 0.99,
+    "water": 0,
+    "betula": 0.95,
+    "corylus": 0.97,
+    "poaceae": 0.97,
+    "populus": 0.97,
+    "quercus": 0.99,
+    "carpinus": 0.9,
+    "fraxinus": 0.75,
+    "pinaceae": 0.8,
+    "platanus": 0.97,
+    "cupressus": 0.4
+  },
+  "scalingFactors": {
+    "alnus": 5.027,
+    "fagus": 8.6,
+    "taxus": 0,
+    "ulmus": 0,
+    "water": 1,
+    "betula": 18.586,
+    "corylus": 19.26,
+    "poaceae": 7.2866,
+    "populus": 0,
+    "quercus": 5.1045,
+    "carpinus": 0,
+    "fraxinus": 5.34,
+    "pinaceae": 0,
+    "platanus": 0,
+    "cupressus": 0
+  },
+  "scalingFactorsOverwrite": {},
+  "supervisor": {
+    "alnus": {
+      "count": 20,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "fagus": {
+      "count": 50,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "taxus": {
+      "count": 20,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "ulmus": {
+      "count": 20,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "water": {
+      "count": 1,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "betula": {
+      "count": 30,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "corylus": {
+      "count": 10,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "poaceae": {
+      "count": 50,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "populus": {
+      "count": 20,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "quercus": {
+      "count": 30,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "carpinus": {
+      "count": 10,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "fraxinus": {
+      "count": 20,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "pinaceae": {
+      "count": 10,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "platanus": {
+      "count": 20,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    },
+    "cupressus": {
+      "count": 25,
+      "timeWindow": 1440,
+      "certaintyThreshold": 0.999
+    }
+  },
+  "supervisorTimeWindow": 0,
+  "configuration": {
+    "classMapping": {
+      "alnus": "alnus",
+      "fagus": "fagus",
+      "taxus": "taxus",
+      "ulmus": "ulmus",
+      "water": "water",
+      "betula": "betula",
+      "corylus": "corylus",
+      "poaceae": "dactylis",
+      "populus": "populus",
+      "quercus": "quercus",
+      "carpinus": "carpinus",
+      "fraxinus": "fraxinus",
+      "pinaceae": "pinaceae",
+      "platanus": "platanus",
+      "cupressus": 0.4,
+      "cupressus ": "cupressus"
+    }
+  }
+}

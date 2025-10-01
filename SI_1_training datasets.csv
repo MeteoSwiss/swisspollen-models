@@ -1,0 +1,212 @@
+﻿Classes;Genus;Species;UUID;Dataset name;Number events after cleaning;Poleno;Location;Country;Holography only;Holography + fluorescence;Holography only + holography + fluorescence;"Filtered datasets: 
+download link ssabox.ch/datasets_meteoswiss.tar";Download link - unflitered data;;;;;;;;;;;;;;;;;;;
+Alnus;Alnus;;11ef555e-ead7-af90-a546-ae7b87f820b4;CH_chevroux_ers_2023_02_21_2 - MMP_OP_model;26123;27;Chevroux;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Alnus;Alnus;;11ef7bf4-d978-126e-add7-ae7b87f820b4;CH_chevroux_lax_2023_02_21_3_LBM_OP_model;26692;27;Chevroux;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Alnus;Alnus;Glutinosa;11ef7412-b345-a193-bd98-ae7b87f820b4;CH_payerne_ers_2023_02_13_1 - LBM_OP_model;9419;27;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Alnus;Alnus;;11ef9863-c4af-c121-98b8-ae7b87f820b4;CH_chevroux_ers_2023_02_21_1 - ERB;9743;27;Chevroux;CH;;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Alnus;Alnus;;11ea8475-957e-347c-985a-ae7b87f820b4;alnus_20200214_p4_1_benoit;3474;4;Chevroux;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Alnus;Alnus;;11ea8493-7107-8db4-9bf7-ae7b87f820b4;alnus_20200220_p5_1_benoit;3990;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Alnus;Alnus;;11ea847a-f995-790c-830f-ae7b87f820b4;alnus_20200218_p2_1_benoit;4966;2;Payerne-Estavayer;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Betula;Betula;pendula;11ef5966-54f5-f875-875b-ae7b87f820b4;CH_avenches_ers_2023_04_18_1 - MMP_OP_model;16265;27;Avenches;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Betula;Betula;pendula;11ef742f-0f3d-287f-95a7-ae7b87f820b4;CH_avenches_ers_2023_04_27_1 - LBM_OP_model;24191;27;Avenches;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Betula;Betula;pendula;11ef7caa-9074-2e06-9a06-ae7b87f820b4;CH_avenches_ers_2023_04_27_2 - LBM_OP_model;17824;27;Avenches;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Betula;Betula;pendula;11ef9864-602f-925d-95e6-ae7b87f820b4;CH_avenches_ers_2023_04_06_3 - ERB_clean;19232;27;Avenches;CH;;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Betula;Betula;;11ea8632-1eb2-2452-bc84-ae7b87f820b4;betula_20200406_p4_1_benoit;2173;4;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Betula;Betula;;11ea8897-f50e-66a2-9876-ae7b87f820b4;betula_20200406_p2_1_benoit;5770;2;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Betula;Betula;;11ea8632-18ed-7210-985a-ae7b87f820b4;betula_20200407_p4_2_benoit;6533;4;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Carpinus;Carpinus;;11ea8f6c-b78c-d076-a542-ae7b87f820b4;carpinus_20200319_p4_2_fiona;395;4;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Carpinus;Carpinus;;11ea8f6d-1562-211a-8192-ae7b87f820b4;carpinus_20200319_p2_3_fiona;545;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Carpinus;Carpinus;;11ea8f77-4ee3-aef4-b330-ae7b87f820b4;carpinus_20200319_p5_2_fiona;643;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Carpinus;Carpinus;;11ea8f6d-3e75-9fe6-b46e-ae7b87f820b4;carpinus_20200319_p2_2_fiona;664;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Carpinus;Carpinus;betulus;11ef548a-4939-fdb8-98f4-ae7b87f820b4;CH_avenches_ers_2023_04_06_1 - MMP_OP_model;12834;27;Avenches;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Carpinus;Carpinus;betulus;11ef7590-2402-fccd-8494-ae7b87f820b4;CH_avenches_ers_2023_04_06_2 - MMP_OP_model;13519;27;Avenches;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;;11ea8498-b083-cb92-a1a5-ae7b87f820b4;corylus_20200225_p2_1_benoit;500;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana 'contorta';11ef435f-da12-553d-acd5-ae7b87f820b4;CH_avenches_ers_2023_03_02_1 - MMP_OP_model;30880;27;Avenches;CH;;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana 'contorta';11ef443a-57f2-cb88-a1cc-ae7b87f820b4;CH_avenches_ers_2023_03_15_1 - MMP_OP_model;23519;27;Avenches;CH;;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana 'contorta';11ef765c-76b9-be6a-a18d-ae7b87f820b4;CH_avenches_ers_2023_03_17_1-LBM_OP_model;16461;27;Avenches;CH;;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana 'contorta';11ef80a3-34e8-3616-b692-ae7b87f820b4;CH_avenches_ers_2023_03_17_2 - MMP_OP_model;16284;27;Avenches;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana;11ef4402-8aef-e829-b3a3-ae7b87f820b4;CH_boveresse_ers_2023_03_12_1 - MMP_OP_model;14700;27;Boveresse;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana;11ef4415-7945-77c8-984a-ae7b87f820b4;CH_boveresse_ers_2023_03_12_3 - MMP_OP_model;18110;27;Boveresse;CH;;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana;11ee0548-a288-9098-b464-ae7b87f820b4;CH_chevroux_lax_2023_02_21_1 - MMP_OP_model;14352;27;Chevroux;CH;;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;-;11ef79a5-1858-c0b9-9d99-ae7b87f820b4;CH_chevroux_lax_2023_02_21_2 - MMP_OP_model;15270;27;Chevroux;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana;11ef3f84-227f-b2b8-b863-ae7b87f820b4;CH_payerne_ers_2023_01_31_1 - MMP_OP_model;10153;27;Payerne;CH;;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana;11ef3f92-bfa9-554f-848b-ae7b87f820b4;CH_payerne_ers_2023_01_31_2 - MMP_OP_model;21586;27;Payerne;CH;;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana;11ef758a-01b2-4103-88da-ae7b87f820b4;CH_payerne_ers_2023_02_13_2 - LBM_OP_model;11246;27;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;avellana 'contorta';11ef797b-3d8a-2999-9547-ae7b87f820b4;CH_villars-sur-glane_ers_2023_03_14_1 - MMP_OP_model;16366;27;Villars-sur-glane;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;;11ea8498-afa9-cec4-a877-ae7b87f820b4;corylus_20200225_p5_1_benoit;3578;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Corylus;Corylus;;11ea8498-b729-d4e6-bc84-ae7b87f820b4;corylus_20200225_p2_2_benoit;3736;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Cupressaceae;Cupressus;;11ea8fa9-6c12-723a-b3dd-ae7b87f820b4;cupressus_20200317_p5_1_fiona;421;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Cupressaceae;Cupressus;;11ea8fa8-d163-dce2-b1cb-ae7b87f820b4;cupressus_20200317_p4_1_fiona;583;4;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Cupressaceae;Cryptomeria;japonica;11ef6090-116c-d2cc-ba15-ae7b87f820b4;CH_payerne_lax_2023_02_23_1 - MMP_OP_model;16266;27;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Cupressaceae;Cupressus;Arizonica;11ef7a7a-fed6-686e-bc9e-ae7b87f820b4;FMI_2023_114 - MMP_OP_model;7895;3;Novi Sad;SE;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Cupressaceae;Cupressus;Arizonica;11ef79ba-b631-a149-8d81-ae7b87f820b4;FMI_2023_115 - MMP_OP_model;5428;3;Novi Sad;SE;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Cupressaceae;Cupressus;;11ea8fa8-fafa-aeb4-ac46-ae7b87f820b4;cupressus_20200317_p2_1_fiona;2340;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Fagus;Fagus;sylvatica;11ef6546-6467-daae-83e3-ae7b87f820b4;CH_payerne_ers_2023_05_04_2 - MMP_OP_model;4012;22;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Fagus;Fagus;;11ef7fd5-71ad-7d62-b3fc-ae7b87f820b4;Fagus_SonnenBlick_2023 - MMP_OP_model;7418;15;SonnenBlick;AU;;y;y;"Julia Burkart, GeoSphere Austria, Sonnblick Observator
+julia.burkart@geosphere.at";;;;;;;;;;;;;;;;;;;;
+Fagus;Fagus;;11ea8636-313b-a6e4-a69e-ae7b87f820b4;fagus_20200413_p4_1_benoit;2759;4;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Fagus;Fagus;;11ea8635-ef91-6ab2-a877-ae7b87f820b4;fagus_20200407_p2_1_benoit;3410;2;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Fagus;Fagus;;11ea8635-eb18-6ee0-9876-ae7b87f820b4;fagus_20200413_p5_1_benoit;4143;5;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Fraxinus;Fraxinus;excelsior;11ea857b-150e-c372-bc84-ae7b87f820b4;fraxinus_20200330_p2_1_benoit;1712;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Fraxinus;Fraxinus;excelsior;11f0105e-1471-45da-ad82-ae7b87f820b4;CH_Payerne_crb_2025_04_02_1-OP_mmp;15276;29;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Fraxinus;Fraxinus;excelsior;11f01091-f049-9c72-a9f3-ae7b87f820b4;CH_Payerne_crb_2025_04_02_2-OP_mmp;9141;28;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Fraxinus;Fraxinus;excelsior;11ea857b-3d52-9034-830f-ae7b87f820b4;fraxinus_20200330_p4_1_benoit;2621;4;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Fraxinus;Fraxinus;excelsior;11ea857e-7bc5-60a0-842e-ae7b87f820b4;fraxinus_20200402_p5_2_benoit;5703;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Pinaceae;Picea;;11ea8af3-c533-f39e-8b25-ae7b87f820b4;picea_20200423_p2_1_fiona;1826;2;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Pinaceae;Picea;;11ea8af0-83dc-6d66-b06c-ae7b87f820b4;picea_20200423_p5_1_fiona;1969;5;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Pinaceae;Picea;;11ea8af1-91fc-9a46-8b25-ae7b87f820b4;picea_20200423_p4_1_fiona;2375;4;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Pinaceae;Picea;abies;11ef4511-b01c-fd3d-8eca-ae7b87f820b4;CH_boveresse_ers_2023_05_13_1 - MMP_OP_model;14356;2;Boveresse;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Pinaceae;Cedrus;atlantica;11ef3f5a-6aba-3b37-b8c0-ae7b87f820b4;CH_fribourg_tuf_2023_10_30_1 - MMP_OP_model;9622;19;Fribourg;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Pinaceae;Pinus;sylvestris;11ef4801-d395-438f-baa6-ae7b87f820b4;CH_neuchatel_ers_2023_05_12_1 - MMP_OP_model;14373;2;Neuchatel;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Pinaceae;Larix;decidua;11ef606d-1db8-1473-80f9-ae7b87f820b4;CH_payerne_ers_2023_03_20_1 - MMP_OP_model;10859;27;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Pinaceae;Cedrus;atlantica;11ef3f53-9ce6-11f0-b169-ae7b87f820b4;CH_payerne_ers_2023_10_03_1 - MMP_OP_model;10343;19;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Pinaceae;Pinus;;11ea863d-acf6-0ade-985a-ae7b87f820b4;pinus_20200421_p5_1_benoit;3403;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Pinaceae;Pinus;;11ea863c-2449-be52-8814-ae7b87f820b4;pinus_20200421_p2_1_benoit;8582;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Platanus;Platanus;x hispanica;11ef53fb-aa93-bcb1-ba9b-ae7b87f820b4;CH_payerne_ers_2023_05_04_1 - MMP_OP_model;14386;22;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Platanus;Platanus;;11ea8881-3721-9aa8-a907-ae7b87f820b4;platanus_20200417_p2_1_benoit;5544;2;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Platanus;Platanus;;11ea8b83-25c9-8194-90d1-ae7b87f820b4;platanus_20200417_p4_1_benoit;5603;4;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Poacea;Dactylis;glomerata;11eb5fc3-03fa-6da2-8b42-ae7b87f820b4;POCclean_dactylis_20200518_p4_1;1127;4;Uknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Poacea;Mixed poaceae with Arrhenatherum elatius;;11ea990f-ee01-8334-b3dd-ae7b87f820b4;gram_20200518_p2_1_benoit;1229;2;Treyvaux;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Poacea;Trisetum;arvense;11ebe540-187e-9a0c-b0e2-ae7b87f820b4;poaceae_trisetum_fresh_p19_2021_tri_Nina;1377;19;Uknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Poacea;Mixed poaceae with Arrhenatherum elatius;;11ea990c-b2bc-fe96-b46e-ae7b87f820b4;gram_20200518_p5_1_benoit;1508;5;Treyvaux;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Poacea;Dactylis;glomerata;11ea9911-49c3-2faa-86f2-ae7b87f820b4;dactylis_20200518_p4_1_benoit;2172;4;Unknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Poacea;Dactylis;;11ebe542-660e-0206-80be-ae7b87f820b4;poaceae_dactylis_fresh_p19_2021_tri_Nina;3110;19;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Poacea;Alopecurus;pratensis;11ef3dda-b346-97b3-8ec1-ae7b87f820b4;CH_boveresse_ers_2023_05_07_1 - MMP_OP_model;9839;2;Boveresse;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Poacea;Bromus;-;11ef3eae-6645-7a48-99e9-ae7b87f820b4;CH_payerne_ers_2023_05_16_1 - MMP_OP_model;13344;2;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Poacea;Lolium;multiflorum;11ef44fb-0c21-52e9-a4cd-ae7b87f820b4;CH_payerne_ers_2023_05_16_2 - MMP_OP_model;9103;2;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Poacea;Dactylis;glomerata;11ef4447-bfb6-a6f5-ad04-ae7b87f820b4;CH_payerne_ers_2023_05_30_1 - MMP_OP_model;12312;2;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Poacea;Trisetum;flavescens;11ef4f0e-51b6-b48e-8416-ae7b87f820b4;CH_payerne_ers_2023_05_30_2 - MMP_OP_model;11716;2;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Poacea;Trisetum;flavescens;11ef5339-67e4-de0d-bb27-ae7b87f820b4;CH_payerne_ers_2023_08_14_1 - MMP_OP_model;18883;2;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Poacea;cynosurus;cristatus ;11eb5fd9-961a-313e-ac56-ae7b87f820b4;POCclean_cynosurus_20200520_p4_1_fiona;5895;4;Uknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Poacea;cynosurus;cristatus ;11eb5fd9-dd36-0a20-88f3-ae7b87f820b4;POCclean_cynosurus_20200520_p2_1_;6248;2;Uknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Populus;Populus;;11ea84a0-e89b-43b8-a69e-ae7b87f820b4;populus_20200327_p2_benoit;508;2;Uknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Populus;Populus;;11ea8893-edfb-ca84-a877-ae7b87f820b4;populus_20200327_p5_1_benoit;657;5;Uknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Populus;Populus;;11ea84a0-a2f0-ab8c-a877-ae7b87f820b4;populus_20200327_p4_benoit;2913;4;Uknown;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Populus;Populus;nigra;11ef7f2a-ee86-9303-857c-ae7b87f820b4;FMI_2023_128 - MMP_OP_model;10313;3;Novi Sad;SE;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Quercus;Quercus;;11ea863d-f388-a038-a1a5-ae7b87f820b4;quercus_20200421_p5_1_benoit;2519;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Quercus;Quercus;;11ea863e-1fea-0f7c-a1a5-ae7b87f820b4;quercus_20200421_p4_1_benoit;3824;4;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Quercus;Quercus;;11ea863e-1b86-8226-a1a5-ae7b87f820b4;quercus_20200421_p2_1_benoit;4768;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Quercus;Quercus;petraea;11ef5a41-dc61-7a4a-a261-ae7b87f820b4;CH_morat_ers_2024_04_23_1 - MMP_OP_model;27439;19;Morat;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Quercus;Quercus;robur;11ef7fe4-ce58-81d5-8dce-ae7b87f820b4;CH_payerne_ers_2024_04_23_1 - MMP_OP_model;6957;19;Payerne;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ebe542-f782-c172-bf10-ae7b87f820b4;P5_Payerne_Pluie_28_04;389;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ebeabd-e224-d5c4-8b63-ae7b87f820b4;P5_Payerne_Pluie_30_04_AM;2786;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ebedec-0da5-47ac-8066-ae7b87f820b4;P5_Payerne_Pluie_30_04_PM;3179;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ef442d-89b7-7af0-955b-ae7b87f820b4;rain1_OP_MMP_model;6202;11;Luzern;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ef4436-8cba-ff2f-a815-ae7b87f820b4;rain2_OP_MMP_model;408;5;Davos;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ef608e-468b-8e7d-a2b4-ae7b87f820b4;raindrop-clean-1;1878;33;Jungfraujoch;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ef6161-6963-fcc0-b03a-ae7b87f820b4;raindrop-clean-2;1139;33;Jungfraujoch;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ef6151-e8bc-b228-b4ee-ae7b87f820b4;raindrop-clean-3;2186;33;Jungfraujoch;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ef616c-c78a-aeb8-9296-ae7b87f820b4;raindrop-clean-4;4245;33;Jungfraujoch;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Raindrops;Raindrops;;11ebee15-1fea-4c68-9cd6-ae7b87f820b4;P16_Locarno_Pluie_29_04;7691;16;Locarno;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Taxus;Taxus;;11ea8494-33a5-2e4e-bc84-ae7b87f820b4;taxus_20200220_p5_1_benoit;3411;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Taxus;Taxus;;11ea8477-cede-e7dc-897d-ae7b87f820b4;taxus_20200218_p4_1_benoit;4872;4;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Taxus;Taxus;;11ea8477-b584-b690-830f-ae7b87f820b4;taxus_20200218_p2_1_benoit;5593;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Taxus;Taxus;baccata;11ef499c-87da-905f-8b4f-ae7b87f820b4;CH_villars-sur-glane_ers_2023_02_28_1 - MMP_OP_model;57530;27;Villars-sur-glane;CH;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;
+Ulmus;Ulmus;;11ea849c-db7b-2170-8b0f-ae7b87f820b4;ulmus_20200311_p2_2_benoit;2392;2;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Ulmus;Ulmus;;11ea849c-df8f-d95e-897d-ae7b87f820b4;ulmus_20200311_p4_2_benoit;3289;4;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Ulmus;Ulmus;;11ea849a-0e25-4018-8814-ae7b87f820b4;ulmus_20200304_p5_1_benoit;4844;5;Payerne;CH;y;;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";;;;;;;;;;;;;;;;;;;;
+Ulmus;Ulmus;glabra;11ef7f1e-02d0-aeda-b0c4-ae7b87f820b4;FMI_2023_102 - MMP_OP_model;9461;57;Turku;FI;;y;y;"benoit.crouzy@meteoswiss.ch
+marie-pierre.meurville@meteoswiss.ch";https://data.sylva.bioaerosol.eu/workspace/referencedatasets/poleno/;;;;;;;;;;;;;;;;;;;

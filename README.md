@@ -7,4 +7,6 @@ Use of the model outside its intended scope—including applications in other ge
 
 The ONNX file contains the model. The text file lists the thresholds and classes used operationally. The xlsx file contains description of and links to training datasets. Model architecture is illustrated in the png file produced by Netron.app Version 8.4.4.
 
+Alternative models tested by MeteoSwiss are provided for reference as well.
+
 

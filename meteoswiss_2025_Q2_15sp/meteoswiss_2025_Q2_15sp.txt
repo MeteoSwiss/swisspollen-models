@@ -1,19 +1,19 @@
   "classes": [
-    "Alnus",
-    "Betula",
-    "Carpinus",
-    "Corylus",
-    "Cupressus",
-    "Fagus",
-    "Fraxinus",
-    "Pinaceae",
-    "Platanus",
-    "Poaceae",
-    "Populus",
-    "Quercus",
+    "Alnus", # Validated
+    "Betula", # Validated
+    "Carpinus", # Not Validated
+    "Corylus", # Validated
+    "Cupressus", # Not Validated
+    "Fagus", # Validated
+    "Fraxinus", # Validated
+    "Pinaceae", # Not Validated
+    "Platanus", # Not Validated
+    "Poaceae", # Validated
+    "Populus", # Not Validated
+    "Quercus", # Validated
     "Water",
-    "Taxus",
-    "Ulmus"
+    "Taxus", # Not Validated
+    "Ulmus" # Not Validated
   ],
   "thresholds": {
     "Alnus": 0.9,
@@ -49,3 +49,4 @@
     "Platanus": 1,
     "Cupressus": 1
   }
+

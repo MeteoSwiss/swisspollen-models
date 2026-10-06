@@ -81,8 +81,8 @@ Folders (examples you use below):
 Conventions and notes
 ---------------------
 - "Threshold 0" is the baseline (expected to be present) and represents "100% kept".
-- "Percentage kept" is computed from the number of *non-zero* daily predictions,
-  relative to baseline (threshold 0). If total_count at baseline is zero, that
+- "Percentage kept" is the sum of daily counts at a threshold, relative to the
+  baseline (threshold 0). If the baseline sum is zero, that
   model/species/dataset is skipped.
 - Null vs 0: Null means no data for that date (e.g., missing joined folder).
   Zero means the date exists but no events passed the threshold.
@@ -95,10 +95,10 @@ import os
 import json
 import plotly.graph_objects as go
 import plotly.express as px  # Used only to obtain color scales
-import numpy as np
+#import numpy as np
 import csv
 from datetime import datetime
-
+import glob
 
 # Utility: merge multiple per-model JSONs into one nested dict
 def load_json_data(json_paths):
@@ -162,14 +162,12 @@ def plot_threshold_discard(data, thresholds, save_path):
     line_styles = ['solid', 'dash', 'dot', 'dashdot']
 
     # Fixed color list for species (extended as needed)
-    species_colors = [
-        'blue', 'green', 'red', 'orange', 'purple', 'cyan', 'magenta', 'yellow'
-    ]
+    species_colors = px.colors.qualitative.Dark24
 
     # Iterate over validation datasets (assumes same set of datasets across models)
-    for validation_dataset_name in next(iter(data.values())).keys():
+    for validation_dataset_name in sorted({d for m in data.values() for d in m}):
         fig = go.Figure()
-
+        all_species = sorted({s for m in data.values() for s in m.get(validation_dataset_name, {})})
         # Track the global date range for this dataset (based on threshold 0)
         min_date = None
         max_date = None
@@ -184,9 +182,10 @@ def plot_threshold_discard(data, thresholds, save_path):
             validation_data = model_data.get(validation_dataset_name, {})
 
             # Iterate over species
-            for j, (species, species_data) in enumerate(validation_data.items()):
-                initial_sum = None
+            for species, species_data in validation_data.items():
+                j = all_species.index(species)
                 percentage_discarded = []
+                initial_sum = sum(v for v in species_data.get('0', {}).get('prediction_counts', {}).values() if v is not None)
 
                 # Iterate over thresholds
                 for threshold in thresholds:
@@ -197,7 +196,7 @@ def plot_threshold_discard(data, thresholds, save_path):
 
                     # Update min/max dates when threshold == 0 (baseline)
                     if threshold == 0:
-                        dates_at_threshold_0 = prediction_counts.keys()
+                        dates_at_threshold_0 = [d for d, v in prediction_counts.items() if v is not None]
                         if dates_at_threshold_0:
                             dates_at_threshold_0 = [datetime.strptime(date, "%Y-%m-%d") for date in dates_at_threshold_0]
                             current_min_date = min(dates_at_threshold_0)
@@ -207,12 +206,9 @@ def plot_threshold_discard(data, thresholds, save_path):
                             if max_date is None or current_max_date > max_date:
                                 max_date = current_max_date
 
-                    # Baseline total (100% kept). Uses sum of non-null values at this threshold.
-                    if initial_sum is None:
-                        initial_sum = sum(v for v in prediction_counts.values() if v is not None)
-
                     # Sum values at this threshold (only non-null)
-                    sum_at_threshold = sum(v for v in prediction_counts.values() if v is not None and v >= threshold)
+                    #sum_at_threshold = sum(v for v in prediction_counts.values() if v is not None and v >= threshold)
+                    sum_at_threshold = sum(v for v in prediction_counts.values() if v is not None)
 
                     # % discarded relative to baseline
                     percentage_discarded.append(100 - (sum_at_threshold / initial_sum) * 100 if initial_sum else 0)
@@ -223,7 +219,7 @@ def plot_threshold_discard(data, thresholds, save_path):
                     y=percentage_discarded,
                     mode='lines+markers',
                     name=f'{model_name} - {species}',
-                    line=dict(dash=line_styles[i % len(line_styles)]),  # style by model
+                    line=dict(dash=line_styles[i % len(line_styles)], color=species_colors[j % len(species_colors)]),
                     marker=dict(color=species_colors[j % len(species_colors)])  # color by species
                 ))
 
@@ -239,7 +235,8 @@ def plot_threshold_discard(data, thresholds, save_path):
             showlegend=True,
             template="plotly_white"
         )
-
+        fig.update_xaxes(type="category")
+        
         # Write one HTML per validation dataset
         os.makedirs(save_path, exist_ok=True)
         validation_save_path = os.path.join(save_path, f'{validation_dataset_name}_removed_proportions_by_threshold.html')
@@ -250,8 +247,8 @@ def plot_threshold_discard(data, thresholds, save_path):
 def save_threshold_discard_table(data, save_path, model_name=None, keep_percentage=70):
     """
     For a given model (or for all models if model_name is None), find—per species and validation dataset—
-    the highest threshold at which at least 'keep_percentage'% of event-days remain
-    (baseline = threshold '0', counting days with non-zero predictions).
+    the highest threshold at which at least 'keep_percentage'% of the total count
+    remains (baseline = threshold '0', sum of daily counts).
 
     Writes one CSV per model to 'save_path'.
     """
@@ -276,9 +273,10 @@ def save_threshold_discard_table(data, save_path, model_name=None, keep_percenta
                 threshold_to_keep = None
 
                 # Collect and sort thresholds as numbers (keys are strings)
-                available_thresholds = sorted(
-                    [float(threshold) for threshold in species_data.keys() if threshold != 'prediction_counts']
-                )
+                #available_thresholds = sorted(
+                #    [float(threshold) for threshold in species_data.keys() if threshold != 'prediction_counts']
+                #)
+                available_thresholds = sorted(species_data.keys(), key=float)
                 print(f"Available thresholds for {species} in {validation_dataset_name}: {available_thresholds}")
 
                 if not available_thresholds:
@@ -287,12 +285,12 @@ def save_threshold_discard_table(data, save_path, model_name=None, keep_percenta
 
                 baseline_threshold = '0'  # always present
 
-                # Count event-days with non-zero predictions at baseline
-                total_count = sum(
-                    1 for v in species_data.get(baseline_threshold, {}).get('prediction_counts', {}).values()
-                    if v is not None and v > 0
+                # Total count (sum over all days) at baseline
+                baseline_total = sum(
+                    v for v in species_data.get(baseline_threshold, {}).get('prediction_counts', {}).values()
+                    if v is not None
                 )
-                print(f"The total count for {species} in {validation_dataset_name} at threshold 0.0 is {total_count}")
+                print(f"The baseline total for {species} in {validation_dataset_name} at threshold 0 is {baseline_total:.2f}")              
 
                 # Walk thresholds in ascending order; keep raising while ≥ keep_percentage
                 for threshold in available_thresholds:
@@ -300,14 +298,14 @@ def save_threshold_discard_table(data, save_path, model_name=None, keep_percenta
                     print(f"Checking threshold {str_threshold} for species {species}...")
 
                     prediction_counts = species_data.get(str_threshold, {}).get('prediction_counts', {})
-                    non_zero_count = sum(1 for v in prediction_counts.values() if v is not None and v > 0)
-                    print(f"Non-zero entries at threshold {threshold}: {non_zero_count}")
+                    threshold_total = sum(v for v in prediction_counts.values() if v is not None)
+                    print(f"Total count at threshold {threshold}: {threshold_total:.2f}")
 
-                    if non_zero_count == 0:
+                    if threshold_total == 0:
                         print(f"{str_threshold} has no valid prediction counts for {species}. Skipping...")
                         continue
 
-                    percentage_kept = (non_zero_count / total_count) * 100 if total_count else 0
+                    percentage_kept = (threshold_total / baseline_total) * 100 if baseline_total else 0
                     print(f"Percentage kept at threshold {threshold}: {percentage_kept:.2f}%")
 
                     if percentage_kept >= keep_percentage:
@@ -377,7 +375,8 @@ def plot_timeseries(data, thresholds, save_dir):
                             y=ref_values, 
                             mode='lines', 
                             name=f'{model_name} - {val_dataset} - {species} - Reference', 
-                            line=dict(dash='solid', color='blue')
+                            line=dict(dash='solid', color='blue'),
+                            yaxis='y2'
                         ))
                         reference_plotted = True
 
@@ -393,7 +392,9 @@ def plot_timeseries(data, thresholds, save_dir):
                 fig.update_layout(
                     title=f"{model_name} - {val_dataset} - {species} - Threshold Timeseries",
                     xaxis_title="Date",
-                    yaxis_title="Count",
+                    yaxis=dict(title="Prediction", rangemode="tozero"),
+                    yaxis2=dict(title="Reference (Hirst)", overlaying="y", side="right",
+                                rangemode="tozero", showgrid=False),
                     showlegend=True,
                     template="plotly_white"
                 )
@@ -460,7 +461,8 @@ def plot_timeseries_for_selected_species_and_models(data, species_thresholds, va
                         y=ref_values_0,
                         mode='lines',
                         name=f'{species} - Reference (Threshold 0) - {model_name} - {validation_dataset}',
-                        line=dict(dash='solid', color=colors[color_index % len(colors)])
+                        line=dict(dash='solid', color=colors[color_index % len(colors)]),
+                        yaxis='y2'
                     ))
                     color_index += 1
 
@@ -513,7 +515,9 @@ def plot_timeseries_for_selected_species_and_models(data, species_thresholds, va
     fig.update_layout(
         title=dict(text=title, x=0.5, xanchor='center', yanchor='top'),
         xaxis_title="Date",
-        yaxis_title="Counts",
+        yaxis=dict(title="Prediction", rangemode="tozero"),
+        yaxis2=dict(title="Reference (Hirst)", overlaying="y", side="right",
+                    rangemode="tozero", showgrid=False),
         template="plotly_white",
         legend=dict(
             title="Legend",
@@ -521,7 +525,7 @@ def plot_timeseries_for_selected_species_and_models(data, species_thresholds, va
             yanchor="top",
             y=1,
             xanchor="left",
-            x=1.05
+            x=1.1
         )
     )
 
@@ -539,7 +543,7 @@ def plot_timeseries_for_selected_species_and_models(data, species_thresholds, va
 def save_all_threshold_retention_tables(data, save_path):
     """
     Build a single CSV ('all_models_threshold_retention.csv') with the percentage of
-    event-days retained at each available threshold for every model / dataset / species.
+    total count retained at each available threshold for every model / dataset / species.
 
     Baseline threshold = the first (numerically smallest) available threshold for that
     species, which should be '0'. If baseline has 0 event-days, that combo is skipped.
@@ -561,19 +565,18 @@ def save_all_threshold_retention_tables(data, save_path):
                     continue
 
                 baseline_threshold = available_thresholds[0]
-                total_count = sum(
-                    1 for v in species_data.get(baseline_threshold, {}).get('prediction_counts', {}).values()
-                    if v is not None and v > 0
+                baseline_total = sum(
+                    v for v in species_data.get(baseline_threshold, {}).get('prediction_counts', {}).values()
+                    if v is not None
                 )
-                if total_count == 0:
+                if baseline_total == 0:
                     print(f"Total count at threshold {baseline_threshold} for species {species} is 0. No data to process.")
                     continue
 
                 for str_threshold in available_thresholds:
                     prediction_counts = species_data.get(str_threshold, {}).get('prediction_counts', {})
-                    non_zero_count = sum(1 for v in prediction_counts.values() if v is not None and v > 0)
-
-                    percentage_kept = (non_zero_count / total_count) * 100 if total_count else 0
+                    threshold_total = sum(v for v in prediction_counts.values() if v is not None)
+                    percentage_kept = (threshold_total / baseline_total) * 100 if baseline_total else 0
 
                     # Force exactly 100% at threshold 0
                     if float(str_threshold) == 0:
@@ -603,27 +606,20 @@ def save_all_threshold_retention_tables(data, save_path):
 ###################################################################################################
 
 # JSON files produced by 01_build_dict_inference.py
-json_paths = [
-    '01_json_files/dict_2024_PBS_2025Q1_Beta_onnx_mixed_15sp.json',
-    '01_json_files/dict_2024_PBU_2025Q1_Beta_onnx_mixed_15sp.json',
-    '01_json_files/dict_2024_PPY_2025Q1_Beta_onnx_mixed_15sp.json',
-    '01_json_files/dict_2024_PNE_2025Q1_Beta_onnx_mixed_15sp.json',
-    '01_json_files/dict_2024_PLZ_2025Q1_Beta_onnx_mixed_15sp.json',
-    '01_json_files/dict_2024_PBS_2025Q2_Gamma_onnx_mixed_15sp_redFluo.json',
-    '01_json_files/dict_2024_PBU_2025Q2_Gamma_onnx_mixed_15sp_redFluo.json',
-    '01_json_files/dict_2024_PPY_2025Q2_Gamma_onnx_mixed_15sp_redFluo.json',
-    '01_json_files/dict_2024_PNE_2025Q2_Gamma_onnx_mixed_15sp_redFluo.json',
-    '01_json_files/dict_2024_PLZ_2025Q2_Gamma_onnx_mixed_15sp_redFluo.json',
-]
+BASE = "/scratch/lig/swisspollen/classifier_output"
+json_paths = sorted(glob.glob(f"{BASE}/01_json_files/dict_*.json"))
+print(json_paths)
+
 
 # Load and combine
 dat = load_json_data(json_paths)
 
 # Thresholds to visualize (match those used upstream if possible)
-thresholds=[0, 0.2, 0.4, 0.6, 0.75, 0.8, 0.85, 0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.999, 0.9999, 0.99999, 0.999999, 0.9999999]
+#thresholds=[0, 0.2, 0.4, 0.6, 0.75, 0.8, 0.85, 0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.999, 0.9999, 0.99999, 0.999999, 0.9999999]
+thresholds=[0, 0.5, 0.8, 0.95, 0.999]
 
 # Where to save discard plots and CSV summaries
-save_dir = '02_data_discard/02.1_data_discarded/'
+save_dir = '/scratch/lig/swisspollen/classifier_output/02_data_discard/02.1_data_discarded/'
 
 # 1) Global retention table across all models/species/datasets
 save_all_threshold_retention_tables(dat, save_dir)
@@ -632,24 +628,27 @@ save_all_threshold_retention_tables(dat, save_dir)
 plot_threshold_discard(data=dat, thresholds=thresholds, save_path=save_dir)
 
 # 3) Per-model CSV listing max threshold that keeps ≥ 70%
-save_dir = '02_data_discard/02.1_data_discarded/'
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2022Q4_14pol_wd_10m", keep_percentage=70)
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q1_Beta_onnx", keep_percentage=70)
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2024Q4_swisens_First_Stage_v3", keep_percentage=70)
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q1_Gamma_onnx", keep_percentage=70)
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Omega_onnx", keep_percentage=70)
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Omega_onnx_mixed", keep_percentage=70)
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Omega_onnx_mixed_15sp", keep_percentage=70)
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q1_Beta_onnx_mixed_15sp", keep_percentage=70)
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Gamma_onnx_mixed_15sp", keep_percentage=70)
-save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Gamma_onnx_mixed_15sp_redFluo", keep_percentage=70)
+save_dir = '/scratch/lig/swisspollen/classifier_output/02_data_discard/02.1_data_discarded/'
+save_threshold_discard_table(data=dat, save_path=save_dir, keep_percentage=70)   # alle Modell
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="meteoswiss_2026_Q3_7sp_ood", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="meteoswiss_2026_Q2_15sp_en-ood", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2022Q4_14pol_wd_10m", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q1_Beta_onnx", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2024Q4_swisens_First_Stage_v3", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q1_Gamma_onnx", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Omega_onnx", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Omega_onnx_mixed", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Omega_onnx_mixed_15sp", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q1_Beta_onnx_mixed_15sp", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Gamma_onnx_mixed_15sp", keep_percentage=70)
+#save_threshold_discard_table(data=dat, save_path=save_dir,  model_name="2025Q2_Gamma_onnx_mixed_15sp_redFluo", keep_percentage=70)
 
 # 4) One HTML timeseries per (model, dataset, species)
-save_dir = '02_data_discard/02.1_timeseries/'
+save_dir = '/scratch/lig/swisspollen/classifier_output/02_data_discard/02.1_timeseries/'
 plot_timeseries(dat, thresholds, save_dir)
 
 # 5) Optional: combinations plot (custom selections)
-save_dir = '02_data_discard/02.1_timeseries/combinations/'
+save_dir = '/scratch/lig/swisspollen/classifier_output/02_data_discard/02.1_timeseries/combinations/'
 
 '''
 # Example: choose species (with their threshold lists), datasets, and models
@@ -674,8 +673,9 @@ plot_timeseries_for_selected_species_and_models(
 '''
 
 # 6) Optional: build a single combined JSON (handy for later tooling)
-combined_data = load_json_data(json_paths)
-output_file = "01_json_files/combined_data.json"
+#combined_data = load_json_data(json_paths)
+combined_data = dat
+output_file = "/scratch/lig/swisspollen/classifier_output/01_json_files/combined_data.json"
 os.makedirs(os.path.dirname(output_file), exist_ok=True)
 with open(output_file, "w") as f:
     json.dump(combined_data, f, indent=4)

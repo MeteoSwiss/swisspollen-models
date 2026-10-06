@@ -100,7 +100,6 @@ Usage
 """
 
 import pandas as pd
-import pyarrow.dataset as ds
 import json
 import re
 from typing import List, Dict, Optional
@@ -108,7 +107,7 @@ import numpy as np
 import os
 from pathlib import Path
 from datetime import datetime, timedelta
-
+from concurrent.futures import ProcessPoolExecutor
 
 def map_species_name(class_name: str, mapping: Dict[str, List[str]]) -> Optional[str]:
     """
@@ -140,6 +139,30 @@ def clean_nan_values(data_dict):
         elif isinstance(value, float) and (np.isnan(value) or np.isinf(value)):
             data_dict[key] = None
 
+def _read_one(f):
+    with open(f) as fh:
+        d = json.load(fh)
+    ev = [(ts, e) for ts, e in d.items() if isinstance(e, dict) and "full_classification" in e]
+    rows = []
+    if ev:
+        names = list(ev[0][1]["full_classification"])
+        L = np.array([[e["full_classification"][n] for n in names] for _, e in ev])
+        P = np.exp(L - L.max(1, keepdims=True)); P /= P.sum(1, keepdims=True)   # Softmax je Event
+        k, conf = P.argmax(1), P.max(1)
+        rows = [(ts[:10], names[j], c, e["event_multiplier"]) for (ts, e), j, c in zip(ev, k, conf)]
+    return f.parent.name, f"{d['device']}_{d['classification_run']}", rows
+
+
+def read_hourly_jsons(root):
+    """Reads hourly JSONs, returns (df[timestamp, pred, conf, multiplier], hours per day, run name)."""
+    files = sorted(Path(root).glob("*/*_classification.json"))
+    with ProcessPoolExecutor(16) as ex:
+        results = list(ex.map(_read_one, files))
+    hours, rows, name = {}, [], None
+    for day, name, r in results:
+        hours[day] = hours.get(day, 0) + 1
+        rows += r
+    return pd.DataFrame(rows, columns=["timestamp", "pred", "conf", "multiplier"]), hours, name
 
 def performance_analysis_with_counts(
     confidence_thresholds: List[float] = [0.99, 0.999, 0.9999],
@@ -147,6 +170,7 @@ def performance_analysis_with_counts(
     joined_data_paths: List[str] = None,
     model_names: List[str] = None,
     save_path: Optional[str] = "output_timeseries_counts.json",
+    min_hours=18,
 ):
     """
     Build the JSON files containing daily reference and prediction counts for each:
@@ -166,62 +190,27 @@ def performance_analysis_with_counts(
         print(f"\nProcessing model: {model_name}")
 
         # Try to extract the validation dataset name from the folder path
-        match = re.search(r'poleno-\d+/([^/]+)/joined', joined_data_path)
-        validation_dataset_name = match.group(1) if match else "unknown_dataset"
+        #match = re.search(r'poleno-\d+/([^/]+)/joined', joined_data_path)
+        #validation_dataset_name = match.group(1) if match else "unknown_dataset"
+        classifications_df, hours, validation_dataset_name = read_hourly_jsons(joined_data_path)
         print(f"Validation dataset: {validation_dataset_name}")
-
         # Load Hirst reference data (daily counts). Assumes a 'Date' column.
         reference_df = pd.read_csv(csv_location)
-        reference_df['Date'] = pd.to_datetime(reference_df['Date']).dt.strftime('%Y-%m-%d')
-        reference_df.set_index('Date', inplace=True)
+        reference_df['Date'] = pd.to_datetime(reference_df['date']).dt.strftime('%Y-%m-%d')
+        reference_df.set_index('date', inplace=True)
 
         # Standardize Hirst columns using the mapping (columns must match CLASS_MAP keys)
         reference_df.columns = [map_species_name(col, CLASS_MAP) for col in reference_df.columns]
-        reference_df = reference_df.reset_index().rename(columns={'Date': 'date'})
+        reference_df = reference_df.reset_index().rename(columns={'date': 'date'})
 
-        # Load parquet predictions (joined parquet dataset for this model/dataset)
-        preds_dataset = ds.dataset(joined_data_path, exclude_invalid_files=True)
-
-        # Collect all available dates present in the joined folder structure
-        joined_data_root = Path(joined_data_path)
-        available_dates_in_joined = set()
-
-        for year_folder in joined_data_root.glob('*'):
-            if not year_folder.is_dir():
-                continue
-            for month_folder in year_folder.glob('*'):
-                if not month_folder.is_dir():
-                    continue
-                for day_folder in month_folder.glob('*'):
-                    if day_folder.is_dir():
-                        try:
-                            date_str = f"{year_folder.name}-{month_folder.name}-{day_folder.name}"
-                            pd.to_datetime(date_str)  # Validate date format
-                            available_dates_in_joined.add(date_str)
-                        except Exception:
-                            pass
-
-        # Columns expected in the parquet files for this model
-        model_pred_col = f"{model_name}_0_preds"
-        model_conf_col = f"{model_name}_0_confs"
-
-        # Read necessary columns from parquet files
-        scanner = preds_dataset.scanner(columns=["timestamp", model_pred_col, model_conf_col, "multiplier"])
-        classifications_df = scanner.to_table().to_pandas()
-        classifications_df['timestamp'] = pd.to_datetime(classifications_df['timestamp'], errors='coerce').dt.strftime('%Y-%m-%d')
-
-        # If expected columns are missing, skip gracefully
-        if model_pred_col not in classifications_df.columns or model_conf_col not in classifications_df.columns:
-            print(f"Model {model_name} is missing expected columns.")
-            continue
-
-        # Overwrite with definitive list of available dates found in the parquet data
-        available_dates_in_joined = set(classifications_df['timestamp'].dropna().unique())
+        available_dates_in_joined = {d for d, h in hours.items() if h >= min_hours}
 
         # Map raw predicted class names to standardized species names (CLASS_MAP)
-        classifications_df["mapped_species"] = classifications_df[model_pred_col].apply(
-            lambda x: map_species_name(x, CLASS_MAP)
-        )
+        #classifications_df["mapped_species"] = classifications_df["pred"].apply(
+        #    lambda x: map_species_name(x, CLASS_MAP)
+        #)
+        m = {p: map_species_name(p, CLASS_MAP) for p in classifications_df["pred"].unique()}
+        classifications_df["mapped_species"] = classifications_df["pred"].map(m)
 
         # Prepare the output structure for this model/dataset
         model_timeseries_counts = {model_name: {validation_dataset_name: {}}}
@@ -229,7 +218,7 @@ def performance_analysis_with_counts(
         skipped_taxa = set()
 
         # Iterate over all raw taxa appearing in predictions
-        for raw_taxa in classifications_df[model_pred_col].unique():
+        for raw_taxa in classifications_df["pred"].unique():
             mapped_species = map_species_name(raw_taxa, CLASS_MAP)
             if mapped_species is None:
                 # Predicted class not mapped in CLASS_MAP -> not included in JSON
@@ -240,12 +229,33 @@ def performance_analysis_with_counts(
             if mapped_species not in model_timeseries_counts[model_name][validation_dataset_name]:
                 model_timeseries_counts[model_name][validation_dataset_name][mapped_species] = {}
 
+            # Build reference counts:
+            # - If species is "Raindrops", reference is always 0.
+            # - If the species column exists in the Hirst CSV, use it (sum if duplicated columns).
+            # - Otherwise, reference is null for all dates.
+            if mapped_species == "Raindrops":
+                reference_counts = {date: 0 for date in reference_df['date'].astype(str)}
+            else:
+                ref_data = reference_df.set_index('date')
+
+                if mapped_species in ref_data.columns:
+                    species_data = ref_data[mapped_species]
+
+                    # If multiple columns share the same name, sum them row by row (keeping NaN rules)
+                    if isinstance(species_data, pd.DataFrame):
+                        species_data = species_data.sum(axis=1, min_count=1)
+
+                    reference_counts = {
+                        date: (None if pd.isna(value) else value)
+                        for date, value in species_data.items()
+                    }
+                else:
+                    reference_counts = {date: None for date in reference_df['date'].astype(str)}
+
+            sub = classifications_df[classifications_df["mapped_species"] == mapped_species]     
             for confidence_threshold in confidence_thresholds:
                 # Keep rows where confidence >= threshold and species matches
-                filtered_df = classifications_df[
-                    (classifications_df[model_conf_col] >= confidence_threshold)
-                    & (classifications_df["mapped_species"] == mapped_species)
-                ].copy()
+                filtered_df = sub[sub["conf"] >= confidence_threshold].copy()
 
                 if filtered_df.empty:
                     print(f"No detections for {mapped_species} at threshold {confidence_threshold}. Filling with zeros or nulls.")
@@ -258,47 +268,27 @@ def performance_analysis_with_counts(
                 if mapped_species == "Raindrops":
                     filtered_df['multiplier'] = 1
 
-                # Compute daily counts using the multiplier and standard scale factor (57.6)
+                # Compute daily counts using the multiplier and standard scale factor (57.6 m3/day as poleno samples 40L/min)
                 daily_class_counts = filtered_df.groupby('date')['multiplier'].sum().reset_index(name='counts')
                 daily_class_counts['counts'] = daily_class_counts['counts'] / 57.6
+                daily_class_counts['counts'] *= 24 / daily_class_counts['date'].map(hours)
 
                 # Build a complete daily index from the reference dates, then left-join predictions
                 all_dates = pd.DataFrame({'date': reference_df['date'].astype(str)})
                 daily_class_counts['date'] = daily_class_counts['date'].astype(str)
                 daily_class_counts = all_dates.merge(daily_class_counts, on='date', how='left')
 
-                # Build reference counts:
-                # - If species is "Raindrops", reference is always 0.
-                # - If the species column exists in the Hirst CSV, use it (sum if duplicated columns).
-                # - Otherwise, reference is null for all dates.
-                if mapped_species == "Raindrops":
-                    reference_counts = {date: 0 for date in reference_df['date'].astype(str)}
-                else:
-                    ref_data = reference_df.set_index('date')
-
-                    if mapped_species in ref_data.columns:
-                        species_data = ref_data[mapped_species]
-
-                        # If multiple columns share the same name, sum them row by row (keeping NaN rules)
-                        if isinstance(species_data, pd.DataFrame):
-                            species_data = species_data.sum(axis=1, min_count=1)
-
-                        reference_counts = {
-                            date: (None if pd.isna(value) else value)
-                            for date, value in species_data.items()
-                        }
-                    else:
-                        reference_counts = {date: None for date in reference_df['date'].astype(str)}
-
                 # Build prediction counts per day:
                 # - If the day folder is missing in the joined data, set to null.
                 # - If the day exists but no events passed the threshold, set to 0.
+                counts_by_date = daily_class_counts.set_index('date')['counts']
                 prediction_counts = {}
                 for date in reference_df['date'].astype(str):
                     if date not in available_dates_in_joined:
                         prediction_counts[date] = None  # Missing day folder -> null
                     else:
-                        value = daily_class_counts.set_index('date').loc[date, 'counts']
+                        #value = daily_class_counts.set_index('date').loc[date, 'counts']
+                        value = counts_by_date[date]
                         prediction_counts[date] = (0 if pd.isna(value) else value)
 
                 # Store results for this species and threshold
@@ -316,6 +306,7 @@ def performance_analysis_with_counts(
         clean_nan_values(model_timeseries_counts)
 
         # Save one JSON per (model, validation_dataset)
+        os.makedirs(save_path, exist_ok=True)
         output_filename = f"{save_path}dict_{validation_dataset_name}_{model_name}.json"
         with open(output_filename, 'w') as f:
             json.dump(model_timeseries_counts, f, indent=4, sort_keys=True)
@@ -356,7 +347,7 @@ def remove_dates_from_json(
                                     date: count for date, count in threshold["prediction_counts"].items()
                                     if date not in dates_to_remove
                                 }
-
+        os.makedirs(output_folder, exist_ok=True)
         output_path = os.path.join(output_folder, os.path.basename(file_path))
         with open(output_path, 'w') as f:
             json.dump(data, f, indent=4)
@@ -409,54 +400,25 @@ CLASS_MAP = {
 # Keep joined_data_paths, csv_locations, and model_names aligned by position.
 # This is how the code knows which files belong together.
 
+YEAR = 2026
+MODELS = ["meteoswiss_2026_Q3_7sp_ood","meteoswiss_2026_Q2_15sp_en-ood"]
+BASE = "/scratch/lig/swisspollen/classifier_output"
+HIRST_DIR = "./output"
+DEVICE_TO_SITE = {"poleno-17": "PLU", "poleno-26": "PBS"}   # ändert sich je Jahr ggf.
+
 data = performance_analysis_with_counts(
-    confidence_thresholds=[0, 0.2, 0.4, 0.6, 0.75, 0.8, 0.85, 0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 0.999, 0.9999, 0.99999, 0.999999, 0.9999999],
-
-    joined_data_paths=[
-        '/inference_output/model2025/data/poleno-13/2024_PBU/joined/2025Q1_Beta_onnx_mixed_15sp',
-        '/inference_output/model2025/data/poleno-27/2024_PBS/joined/2025Q1_Beta_onnx_mixed_15sp',
-        '/inference_output/model2025/data/poleno-30/2024_PPY/joined/2025Q1_Beta_onnx_mixed_15sp',
-        '/inference_output/model2025/data/poleno-18/2024_PNE/joined/2025Q1_Beta_onnx_mixed_15sp',
-        '/inference_output/model2025/data/poleno-21/2024_PLZ/joined/2025Q1_Beta_onnx_mixed_15sp',
-        '/inference_output/model2025/data/poleno-13/2024_PBU/joined/2025Q2_Gamma_onnx_mixed_15sp_redFluo',
-        '/inference_output/model2025/data/poleno-27/2024_PBS/joined/2025Q2_Gamma_onnx_mixed_15sp_redFluo',
-        '/inference_output/model2025/data/poleno-30/2024_PPY/joined/2025Q2_Gamma_onnx_mixed_15sp_redFluo',
-        '/inference_output/model2025/data/poleno-18/2024_PNE/joined/2025Q2_Gamma_onnx_mixed_15sp_redFluo',
-        '/inference_output/model2025/data/poleno-21/2024_PLZ/joined/2025Q2_Gamma_onnx_mixed_15sp_redFluo',
-            ],
-
-    csv_locations=[
-        '2024_PBU_Hirst.csv',
-        '2024_PBS_Hirst.csv',
-        '2024_PPY_Hirst.csv',
-        '2024_PNE_Hirst.csv', 
-        '2024_PLZ_Hirst.csv',
-        '2024_PBU_Hirst.csv',
-        '2024_PBS_Hirst.csv',
-        '2024_PPY_Hirst.csv',
-        '2024_PNE_Hirst.csv', 
-        '2024_PLZ_Hirst.csv'      
-    ],
-    model_names=[
-        '2025Q1_Beta_onnx_mixed_15sp',
-        '2025Q1_Beta_onnx_mixed_15sp',
-        '2025Q1_Beta_onnx_mixed_15sp',
-        '2025Q1_Beta_onnx_mixed_15sp',
-        '2025Q1_Beta_onnx_mixed_15sp',
-        '2025Q2_Gamma_onnx_mixed_15sp_redFluo',
-        '2025Q2_Gamma_onnx_mixed_15sp_redFluo',
-        '2025Q2_Gamma_onnx_mixed_15sp_redFluo',
-        '2025Q2_Gamma_onnx_mixed_15sp_redFluo',
-        '2025Q2_Gamma_onnx_mixed_15sp_redFluo'
-        ],
-    save_path='01_json_files/full_data/'
+    confidence_thresholds=[0, 0.5, 0.8, 0.95, 0.999],
+    joined_data_paths=[f"{BASE}/{m}/{YEAR}/{dev}" for m in MODELS for dev in DEVICE_TO_SITE],
+    csv_locations=[f"{HIRST_DIR}/dwh_{site}_hirst.csv" for m in MODELS for site in DEVICE_TO_SITE.values()],
+    model_names=[m for m in MODELS for dev in DEVICE_TO_SITE],
+    save_path=f"{BASE}/01_json_files/full_data/",
 )
 
 ####### Trim the JSON to the dates you want
 
 # Folder that contains the JSON files created above
-input_folder = "01_json_files/full_data"
-output_folder = "01_json_files"
+input_folder = "/scratch/lig/swisspollen/classifier_output/01_json_files/full_data/"
+output_folder = "/scratch/lig/swisspollen/classifier_output/01_json_files/"
 
 # Collect all JSON file paths
 file_paths = [
@@ -466,13 +428,12 @@ file_paths = [
 ]
 
 # Validation datasets to modify in the trimming step
-target_validation_datasets = ["2024_PBU", "2024_PBS", "2024_PNE", "2024_PLZ", "2024_PPY"]
+#target_validation_datasets = ["2024_PBU", "2024_PBS", "2024_PNE", "2024_PLZ", "2024_PPY"]
+target_validation_datasets = ["poleno-17_validation_run_lig", "poleno-26_validation_run_lig"]
+
 
 # Example: remove dates between 2024-09-15 and 2024-12-31 (inclusive)
-dates_to_remove = [
-    (datetime(2024, 9, 15) + timedelta(days=i)).strftime("%Y-%m-%d")
-    for i in range((datetime(2024, 12, 31) - datetime(2024, 9, 15)).days + 1)
-]
+dates_to_remove = [] #pd.date_range("2026-05-15", "2026-12-31").strftime("%Y-%m-%d").tolist()
 
 # Apply the trimming to all JSONs in 'file_paths'
 remove_dates_from_json(file_paths, output_folder, dates_to_remove, target_validation_datasets)
